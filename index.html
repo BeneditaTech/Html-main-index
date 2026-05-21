@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Plataforma de Estudos</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <div class="logo">
+            <h1>[nome do projeto]</h1>
+        </div>
+
+        <!--
+            MUDANÇA: adicionado role="search" e aria-label para acessibilidade.
+            Leitores de tela agora identificam isso como área de busca.
+        -->
+        <form action="/buscar" method="get" role="search" aria-label="Buscar artigos">
+
+            <label for="busca" class="sr-only">Pesquisar artigos</label>
+
+            <input type="search"
+                   id="busca"
+                   name="q"
+                   placeholder="Pesquisar artigos...">
+            <!--
+                MUDANÇA: type="text" → type="search".
+                Em mobile, abre o teclado com botão de busca; também semântico.
+            -->
+
+            <button type="submit">
+                Buscar
+            </button>
+
+        </form>
+
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <!-- PERFIL -->
+            <section class="perfil">
+
+                <!--
+                    MUDANÇA: adicionados width e height para evitar CLS
+                    (layout shift enquanto a imagem carrega).
+                    Ajuste os valores conforme o tamanho real da imagem no CSS.
+                -->
+                <img src="gato.jpg"
+                     alt="Foto do usuário"
+                     width="80"
+                     height="80">
+
+                <!--
+                    NOTA: <h2> aqui e nos artigos é aceitável — cada <article>
+                    tem seu próprio outline de documento. Mas se quiser
+                    hierarquia linear simples, o nome do usuário pode ser <h2>
+                    e os títulos dos artigos <h3>.
+                -->
+                <h2>Jonas</h2>
+
+                <!--
+                    MUDANÇA: adicionado aria-label e classe para facilitar
+                    estilização e identificação por leitores de tela.
+                -->
+                <p class="usuario-email" aria-label="Email do usuário">
+                    123legal@emailexemplo.com
+                </p>
+
+            </section>
+
+            <!-- AGENDA -->
+            <section class="agenda">
+
+                <!--
+                    MUDANÇA: <label for="agenda-texto"> associado ao textarea.
+                    Elementos de formulário sem label são inacessíveis.
+                    O <h3> virou o próprio label visível.
+                -->
+                <label for="agenda-texto"><h3>Agenda</h3></label>
+
+                <textarea id="agenda-texto"
+                          placeholder="Anote aqui..."></textarea>
+
+            </section>
+
+            <!-- AÇÕES DA SIDEBAR -->
+            <!--
+                MUDANÇA: seção renomeada de "novo-artigo" para "sidebar-actions".
+                Nomes de classe devem descrever função/estrutura, não conteúdo,
+                assim a classe fica reutilizável se você adicionar outros botões aqui.
+                (opcional — se preferir manter "novo-artigo", funciona também)
+            -->
+            <section class="sidebar-actions">
+
+                <!--
+                    MUDANÇA: adicionado type="button".
+                    Sem isso, botões fora de <form> são tecnicamente type="submit"
+                    por padrão em alguns contextos, o que pode causar comportamentos
+                    inesperados quando você ligar JavaScript a ele.
+                -->
+                <button type="button">
+                    Criar novo artigo
+                </button>
+
+            </section>
+
+        </aside>
+
+        <!-- FEED DE ARTIGOS -->
+        <section class="feed-artigos">
+
+            <!-- ARTIGO 1 -->
+            <article class="artigo">
+
+                <h2>Como estudar inglês</h2>
+
+                <p>
+                    Uma boa forma de aprender inglês é
+                    consumir conteúdos diariamente.
+                </p>
+
+                <!--
+                    MUDANÇA: <span> soltos → <ul> com <li>.
+                    Lista é semanticamente correta para um conjunto de tags.
+                    Muito mais fácil de estilizar: ul.tags { display: flex; gap: ... }
+                    e li { } para cada tag individualmente.
+                    Adicionado aria-label para leitores de tela.
+                -->
+                <ul class="tags" aria-label="Tags do artigo">
+                    <li>#ingles</li>
+                    <li>#idiomas</li>
+                </ul>
+
+            </article>
+
+            <!-- ARTIGO 2 -->
+            <article class="artigo">
+
+                <h2>Resumo da Revolução Francesa</h2>
+
+                <p>
+                    A Revolução Francesa aconteceu em 1789
+                    e mudou a estrutura política da França.
+                </p>
+
+                <ul class="tags" aria-label="Tags do artigo">
+                    <li>#historia</li>
+                    <li>#humanas</li>
+                </ul>
+
+            </article>
+
+            <!-- ARTIGO 3 -->
+            <article class="artigo">
+
+                <h2>Função do HTML</h2>
+
+                <p>
+                    HTML é responsável pela estrutura das páginas web.
+                </p>
+
+                <ul class="tags" aria-label="Tags do artigo">
+                    <li>#programacao</li>
+                    <li>#html</li>
+                </ul>
+
+            </article>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            Plataforma estudantil - TCC 2026
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
