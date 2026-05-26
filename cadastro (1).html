@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Criar conta — Plataforma de Estudos</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER SIMPLIFICADO -->
+    <!--
+        Nas páginas de acesso (login/cadastro) o header não tem
+        busca nem perfil — só o logo e um link para alternar entre as duas.
+    -->
+    <header class="header-simples">
+
+        <div class="logo">
+            <h1>[nome do projeto]</h1>
+        </div>
+
+        <nav aria-label="Navegação de acesso">
+            <a href="login.html">Já tenho conta</a>
+        </nav>
+
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="pagina-acesso">
+
+        <section class="formulario-acesso">
+
+            <h2>Criar conta</h2>
+
+            <p class="subtitulo-acesso">
+                Preencha os dados abaixo para começar a usar a plataforma.
+            </p>
+
+            <!--
+                action="/cadastrar" → rota do seu backend que vai:
+                1. Verificar se o email já existe no banco
+                2. Se não existir: salvar nome, email e senha (hasheada)
+                3. Redirecionar para o feed logado
+                4. Se já existir: devolver a página com mensagem de erro
+
+                method="post" → dados vão no corpo da requisição,
+                não aparecem na URL (importante para senha).
+            -->
+            <form action="/cadastrar" method="post" novalidate>
+
+                <!-- NOME -->
+                <!--
+                    "name" é o identificador que o backend recebe.
+                    Ex: request.form["nome"] no Flask,
+                        req.body.nome no Express (Node).
+                -->
+                <div class="campo">
+                    <label for="nome">Nome</label>
+                    <input type="text"
+                           id="nome"
+                           name="nome"
+                           placeholder="Seu nome completo"
+                           autocomplete="name"
+                           required>
+                </div>
+
+                <!-- EMAIL -->
+                <!--
+                    O backend vai usar este email como identificador único
+                    da conta — não podem existir dois iguais no banco.
+                -->
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           placeholder="seuemail@exemplo.com"
+                           autocomplete="email"
+                           required>
+                </div>
+
+                <!-- SENHA -->
+                <!--
+                    autocomplete="new-password" avisa o navegador que
+                    é uma senha nova — ele não tenta autocompletar com
+                    senhas salvas antigas.
+                -->
+                <div class="campo">
+                    <label for="senha">Senha</label>
+                    <input type="password"
+                           id="senha"
+                           name="senha"
+                           placeholder="Mínimo 8 caracteres"
+                           autocomplete="new-password"
+                           minlength="8"
+                           required>
+                </div>
+
+                <!-- CONFIRMAR SENHA -->
+                <!--
+                    Este campo serve só para o usuário não digitar
+                    a senha errada sem querer. O backend pode ignorar
+                    ele (só precisa do campo "senha"), mas é boa prática
+                    validar que os dois são iguais antes de enviar —
+                    isso pode ser feito com JavaScript no front
+                    ou no próprio backend.
+                -->
+                <div class="campo">
+                    <label for="confirmar-senha">Confirmar senha</label>
+                    <input type="password"
+                           id="confirmar-senha"
+                           name="confirmar-senha"
+                           placeholder="Repita a senha"
+                           autocomplete="new-password"
+                           minlength="8"
+                           required>
+                </div>
+
+                <!--
+                    ESPAÇO PARA MENSAGEM DE ERRO DO BACKEND
+                    Quando o backend detectar que o email já existe,
+                    ele pode devolver a página com este parágrafo
+                    preenchido. Exemplo em Flask:
+
+                    {% if erro %}
+                        <p class="erro-formulario">{{ erro }}</p>
+                    {% endif %}
+
+                    Enquanto não tiver backend, pode deixar oculto
+                    ou remover.
+                -->
+                <p class="erro-formulario" aria-live="polite"></p>
+
+                <button type="submit" class="btn-primario">
+                    Criar conta
+                </button>
+
+            </form>
+
+            <p class="link-redirecionamento">
+                Já tem uma conta?
+                <a href="login.html">Fazer login</a>
+            </p>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Plataforma estudantil - TCC 2026</p>
+    </footer>
+
+</body>
+
+</html>

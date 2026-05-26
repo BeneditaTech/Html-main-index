@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login — Plataforma de Estudos</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER SIMPLIFICADO -->
+    <header class="header-simples">
+
+        <div class="logo">
+            <h1>[nome do projeto]</h1>
+        </div>
+
+        <nav aria-label="Navegação de acesso">
+            <a href="cadastro.html">Criar conta</a>
+        </nav>
+
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="pagina-acesso">
+
+        <section class="formulario-acesso">
+
+            <h2>Entrar</h2>
+
+            <p class="subtitulo-acesso">
+                Bem-vindo de volta. Insira seus dados para continuar.
+            </p>
+
+            <!--
+                action="/login" → rota do seu backend que vai:
+                1. Receber email e senha
+                2. Procurar o email no banco de dados
+                3. Se não achar: devolver erro "conta não encontrada"
+                4. Se achar: pegar a senha hasheada salva no banco
+                             e comparar com a senha que o usuário digitou
+                5. Se as senhas baterem: criar uma sessão (cookie)
+                                         e redirecionar para o feed logado
+                6. Se não baterem: devolver erro "senha incorreta"
+
+                IMPORTANTE: nunca diga ao usuário qual dos dois erros
+                ocorreu (conta não encontrada OU senha errada), pois isso
+                ajuda invasores a descobrir quais emails estão cadastrados.
+                Use sempre uma mensagem genérica, como:
+                "E-mail ou senha incorretos."
+            -->
+            <form action="/login" method="post" novalidate>
+
+                <!-- EMAIL -->
+                <!--
+                    autocomplete="username" indica ao navegador que é
+                    o campo de identificação — ele vai sugerir emails salvos.
+                    (Sim, é "username" mesmo para email, é o padrão HTML.)
+                -->
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           placeholder="seuemail@exemplo.com"
+                           autocomplete="username"
+                           required>
+                </div>
+
+                <!-- SENHA -->
+                <!--
+                    autocomplete="current-password" avisa o navegador
+                    que é a senha atual — ele vai sugerir senhas salvas
+                    para este site.
+                -->
+                <div class="campo">
+                    <label for="senha">Senha</label>
+                    <input type="password"
+                           id="senha"
+                           name="senha"
+                           placeholder="Sua senha"
+                           autocomplete="current-password"
+                           required>
+                </div>
+
+                <!--
+                    ESPAÇO PARA MENSAGEM DE ERRO DO BACKEND
+                    Diferente do cadastro, aqui a mensagem de erro deve
+                    ser GENÉRICA — não diga se foi o email ou a senha
+                    que estava errado. Exemplo em Flask:
+
+                    {% if erro %}
+                        <p class="erro-formulario">{{ erro }}</p>
+                    {% endif %}
+
+                    O backend enviaria algo como:
+                    erro = "E-mail ou senha incorretos."
+                -->
+                <p class="erro-formulario" aria-live="polite"></p>
+
+                <button type="submit" class="btn-primario">
+                    Entrar
+                </button>
+
+            </form>
+
+            <!--
+                LINK "ESQUECI A SENHA"
+                Funcionalidade futura — o backend enviaria um email
+                com link para redefinir a senha.
+                Deixe o link aqui como placeholder por enquanto.
+            -->
+            <p class="link-redirecionamento">
+                <a href="#">Esqueci minha senha</a>
+            </p>
+
+            <p class="link-redirecionamento">
+                Não tem uma conta ainda?
+                <a href="cadastro.html">Criar conta</a>
+            </p>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Plataforma estudantil - TCC 2026</p>
+    </footer>
+
+</body>
+
+</html>
